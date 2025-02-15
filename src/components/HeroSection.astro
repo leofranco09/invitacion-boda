@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+import Flower from "@assets/Flower.jpg"
+
+---
+
+<section class="container relative max-h-screen max-w-screen">
+	<header class="h-[80px]">
+		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply top-[-20px] left-0" />
+		<p class="text-center">Tenemos El Gusto de Invitarte en este dia tan inportante de Nuestras Vidas</p>
+		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply top-[-20px] right-0 rotate-[110deg]" />
+
+	</header>
+	<div class="flex justify-center align-middle h-fit">
+		
+		<h1 class="font-parisienne text-5xl text-red-500">Nuestra Boda <span class="block">Joel Vargas y Esther Quiroga</span></h1>
+	</div>
+</section>
+	
