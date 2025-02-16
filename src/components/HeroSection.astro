@@ -1,19 +1,103 @@
 ---
 import { Image } from "astro:assets";
 import Flower from "@assets/Flower.jpg"
+import Floral from "@assets/watercolor-floral.jpg"
+
+const timeStampEnd = 1740250800;
 
 ---
+<style>
+	
+</style>
 
-<section class="container relative max-h-screen max-w-screen">
+<section class="relative max-h-screen max-w-screen">
 	<header class="h-[80px]">
-		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply top-[-20px] left-0" />
-		<p class="text-center">Tenemos El Gusto de Invitarte en este dia tan inportante de Nuestras Vidas</p>
-		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply top-[-20px] right-0 rotate-[110deg]" />
+		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply top-[-20px] left-0 hidden md:block" />
+		<p class="text-center italic py-10 text-[20px]">Tenemos el gusto de Invitarte en este dia tan inportante de Nuestras Vidas</p>
+		<Image src={Floral}	alt="Flower floral" class="absolute z-10 md:w-[360px] w-[200px] mix-blend-multiply top-[-20px] right-0" />
 
 	</header>
-	<div class="flex justify-center align-middle h-fit">
+	<div class="flex justify-center align-middle h-fit flex-col mt-[55px]">
+		<h1 class="font-parisienne text-5xl text-center text-[#C79A50]">Nuestra Boda</h1>
+		<h2 class="font-parisienne text-5xl text-center text-[#8B2E2E]">Joel Vargas y Esther Quiroga</h2>
+ 
+		<div class="mt-[50px] max-w-lg m-auto">
+			<p class="italic text-lg text-center">"Así que no son ya más dos, sino una sola carne; por tanto, lo que Dios juntó, no lo separe el hombre."</p>
+			<p class="italic text-maroon text-center">Mateo; 19:6</p>
+		</div>
+
+		<p class="text-center">Te invitamos a Nuestra Ceremonia que se</p>
+		<p class="text-center">celebra el:</p>
 		
-		<h1 class="font-parisienne text-5xl text-red-500">Nuestra Boda <span class="block">Joel Vargas y Esther Quiroga</span></h1>
 	</div>
+	<footer class="relative">
+		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply bottom-0 left-0 rotate-180" />
+
+		<div class="mt-8 text-xl flex flex-col items-center justify-center">
+			<p class="fecha relative"><span class="dia relative">Sábado</span> <span class="text-3xl ">22</span> <span class="mes">Febrero</span> | A las <strong>07:00pm</strong></p>
+
+		<div data-date={timeStampEnd}>
+
+			<div >
+				<span data-days>00</span>
+				<span>Dias</span>
+			</div>
+
+			<div>
+				<span data-hours>00</span>
+				<span>Horas</span>
+			</div>
+
+			<div >
+				<span data-minutes>00</span>
+				<span>Minutos</span>
+			</div>
+		
+			<div >
+				<span data-seconds>00</span>
+				<span>Segundos</span>
+			</div>
+
+		</div>
+			
+		</div>
+	</footer>
 </section>
+
+<script>
+	const SECOND = 1000;
+	const MINUTES = SECOND * 60;
+	const HOURS = MINUTES * 60;
+	const DAYS = HOURS * 24;
 	
+	function init() {
+		const $countdown = document.querySelector("[data-date]");
+
+		if(!$countdown) return;
+
+		const $days = $countdown.querySelector("[data-days]");
+		const $hours = $countdown.querySelector("[data-hours]");
+		const $minutes = $countdown.querySelector("[data-minutes]");
+		const $seconds = $countdown.querySelector("[data-seconds]");
+
+		const timeStamp = $countdown.getAttribute("data-date");
+		if(!timeStamp) return;
+
+		const date = new Date(+timeStamp).getTime();
+		const formatTime = (time: number) => {
+			return Math.floor(time).toString().padStart(2, "0")
+		};
+
+		function updateCountdown() {
+			let now = Date.now();
+			let diff = date - now;
+
+			if($days instanceof HTMLElement) {
+				$days.innerText = formatTime(diff / DAYS)
+			};
+		};
+
+		setInterval(updateCountdown, SECOND);
+	}
+	init()
+</script>
