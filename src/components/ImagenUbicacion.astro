@@ -7,19 +7,77 @@ import pareja from "@assets/EsteryJoel.jpg";
   .lugar {
     font-size: clamp(16px, 4vw, 36px);
   }
+  .heart {
+    position: fixed;
+    color: red;
+    bottom: 0;
+    font-size: 20px;
+    animation: subir 5s ease-out forwards;
+    user-select: none;
+  }
+   @keyframes subir {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100vh) scale(1.5);
+    }
+   }
 </style>
 
 <section class="characters w-screen flex flex-col justify-center items-center mt-[60px] pt-[60px] bg-inherit pb-5">
 
   <h3 class="text-wine font-parisienne text-4xl mb-4">Te Esperamos</h3>
 
-  <Image src={pareja} alt="Matrimonio de Ester y Joel" class="w-[340px] h-[420px] rounded-[5px] object-cover" />
+  <Image src={pareja} alt="Matrimonio de Ester y Joel" class="w-[340px] h-[420px] rounded-[5px] object-cover" id="pareja" />
 
   <p class="lugar font-parisienne mt-5 text-dorado">Mandoza, San Carlos, Coronel Videla </p>
   <a href="https://maps.app.goo.gl/4YcABiLF8f8f6WgZ6?g_st=aw" target="_blank" rel="noopener noreferrer">
+    
     <button class="flex flex-row w-max mt-6 px-6 py-3 bg-dorado opacity-70 cursor-pointer rounded-lg shadow-md hover:bg-dorado transition gap-x-3 text-wine hover:text-white font-bold">Ver Ubicación en Google Maps 
+
       <svg class="align-middle " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.3 20.275q-.3-.3-.3-.7t.3-.7L16.175 16H7q-.825 0-1.412-.587T5 14V5q0-.425.288-.712T6 4t.713.288T7 5v9h9.175l-2.9-2.9q-.3-.3-.288-.7t.288-.7q.3-.3.7-.312t.7.287L19.3 14.3q.15.15.212.325t.063.375t-.063.375t-.212.325l-4.575 4.575q-.3.3-.712.3t-.713-.3"/></svg>
     </button>
   </a>
 
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const $pareja = document.getElementById("pareja");
+    // if(!$pareja) return;
+
+    if($pareja instanceof HTMLElement){
+
+    $pareja.addEventListener("click", function() {
+      for(let i = 0; i < 100; i++) {
+        crearCorazon();
+      }
+    })
+
+    function crearCorazon() {
+      const heart = document.createElement("span");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤";
+
+      const x = Math.random() * window.innerWidth;
+      // const y = Math.random() * window.innerHeight;
+
+      const size = Math.floor(Math.random() * (25 - 5 + 1)) + 5;
+
+      heart.style.left = `${x}px`;
+      // heart.style.top = `${y}px`;
+      heart.style.fontSize = `${size}px`;
+      // heart.style.position = "fixed";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove()
+      }, 3000)
+    }
+  }
+})
+</script>
