@@ -3,26 +3,34 @@ import { Image } from "astro:assets";
 import Flower from "@assets/Flower.jpg"
 import Floral from "@assets/watercolor-floral.jpg"
 
-const timeStampEnd = 1740250800;
+const timeStampEnd = 1740250800000;
 
 ---
 <style>
-	
+	.fecha {
+		font-family: "Cinzel Variable", serif;
+	}
+	.invitar {
+		font-size: clamp(14px, 4vw, 20px);
+	}
+	h1, h2 {
+		font-size: clamp(35px, 5vw, 48px);
+	}
 </style>
 
-<section class="relative max-h-screen max-w-screen">
+<section class="relative max-w-screen p-2.5">
 	<header class="h-[80px]">
 		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply top-[-20px] left-0 hidden md:block" />
-		<p class="text-center italic py-10 text-[20px]">Tenemos el gusto de Invitarte en este dia tan inportante de Nuestras Vidas</p>
+		<p class="invitar text-center italic py-10">Tenemos el gusto de Invitarte en este dia tan importante de Nuestras Vidas</p>
 		<Image src={Floral}	alt="Flower floral" class="absolute z-10 md:w-[360px] w-[200px] mix-blend-multiply top-[-20px] right-0" />
 
 	</header>
 	<div class="flex justify-center align-middle h-fit flex-col mt-[55px]">
-		<h1 class="font-parisienne text-5xl text-center text-[#C79A50]">Nuestra Boda</h1>
-		<h2 class="font-parisienne text-5xl text-center text-[#8B2E2E]">Joel Vargas y Esther Quiroga</h2>
+		<h1 class="font-parisienne text-5xl text-center text-dorado">Nuestra Boda</h1>
+		<h2 class="font-parisienne text-5xl text-center text-wine mt-4 md:mt-0">Joel Vargas <span class="block md:inline-block pt-3 pb-6">y</span> Esther Quiroga</h2>
  
-		<div class="mt-[50px] max-w-lg m-auto">
-			<p class="italic text-lg text-center">"Así que no son ya más dos, sino una sola carne; por tanto, lo que Dios juntó, no lo separe el hombre."</p>
+		<div class="mt-[50px] max-w-lg mb-auto mx-auto pb-4">
+			<p class="italic text-lg text-center px-3.5">"Así que no son ya más dos, sino una sola carne; por tanto, lo que Dios juntó, no lo separe el hombre."</p>
 			<p class="italic text-maroon text-center">Mateo; 19:6</p>
 		</div>
 
@@ -30,37 +38,40 @@ const timeStampEnd = 1740250800;
 		<p class="text-center">celebra el:</p>
 		
 	</div>
-	<footer class="relative">
-		<Image src={Flower}	alt="Flower decoration" class="absolute z-10 w-[160px] mix-blend-multiply bottom-0 left-0 rotate-180" />
+	<footer>
+		
 
 		<div class="mt-8 text-xl flex flex-col items-center justify-center">
-			<p class="fecha relative"><span class="dia relative">Sábado</span> <span class="text-3xl ">22</span> <span class="mes">Febrero</span> | A las <strong>07:00pm</strong></p>
+			<p class="fecha relative"><span class="dia relative">Sábado</span> <span class="text-4xl text-cinzel font-light align-middle px-2">22</span> <span class="mes">Febrero</span> <span class="hidden md:inline-block">|</span> <span class="block md:inline-block text-center">A las <strong>07:00pm</strong></span></p>
 
-		<div data-date={timeStampEnd}>
+			<div data-date={timeStampEnd} class="flex flex-row uppercase gap-x-2 font-semibold mt-5">
 
-			<div >
-				<span data-days>00</span>
-				<span>Dias</span>
+				<div class="flex flex-col justify-center items-center gap-y-2 w-16">
+					<span data-days class="text-4xl tabular-nums">00</span>
+					<span class="text-xs text-center">Dias</span>
+				</div>
+
+				<div class="flex flex-col justify-center items-center gap-y-2 w-16">
+					<span data-hours class="text-4xl tabular-nums">00</span>
+					<span class="text-xs text-center">Horas</span>
+				</div>
+
+				<div class="flex flex-col justify-center items-center gap-y-2 w-16">
+					<span data-minutes class="text-4xl tabular-nums">00</span>
+					<span class="text-xs text-center">Minutos</span>
+				</div>
+			
+				<div class="flex flex-col justify-center items-center gap-y-2 w-16">
+					<span data-seconds class="text-4xl tabular-nums">00</span>
+					<span class="text-xs text-center">Segundos</span>
+				</div>
+
 			</div>
-
-			<div>
-				<span data-hours>00</span>
-				<span>Horas</span>
-			</div>
-
-			<div >
-				<span data-minutes>00</span>
-				<span>Minutos</span>
-			</div>
-		
-			<div >
-				<span data-seconds>00</span>
-				<span>Segundos</span>
-			</div>
-
-		</div>
 			
 		</div>
+
+		
+
 	</footer>
 </section>
 
@@ -95,6 +106,18 @@ const timeStampEnd = 1740250800;
 			if($days instanceof HTMLElement) {
 				$days.innerText = formatTime(diff / DAYS)
 			};
+
+			if($hours instanceof HTMLElement) {
+				$hours.innerText = formatTime((diff % DAYS) / HOURS);
+			}
+
+			if($minutes instanceof HTMLElement) {
+				$minutes.innerText = formatTime((diff % HOURS) / MINUTES);
+			}
+
+			if($seconds instanceof HTMLElement) {
+				$seconds.innerText = formatTime((diff % MINUTES) / SECOND);
+			}
 		};
 
 		setInterval(updateCountdown, SECOND);
